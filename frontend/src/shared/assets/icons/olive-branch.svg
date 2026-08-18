@@ -1,0 +1,15 @@
+<svg viewBox="0 0 280 220" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g class="atmosphere-sway-slow" style="transform-origin: 20% 90%">
+    <path d="M24 196C72 176 128 128 168 86C208 44 236 28 258 24" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <ellipse cx="92" cy="148" rx="16" ry="8" transform="rotate(-32 92 148)" fill="currentColor" opacity="0.22"/>
+    <ellipse cx="128" cy="118" rx="18" ry="8" transform="rotate(-38 128 118)" fill="currentColor" opacity="0.28"/>
+    <ellipse cx="166" cy="86" rx="17" ry="7.5" transform="rotate(-42 166 86)" fill="currentColor" opacity="0.24"/>
+    <ellipse cx="202" cy="58" rx="15" ry="7" transform="rotate(-48 202 58)" fill="currentColor" opacity="0.3"/>
+    <ellipse cx="108" cy="132" rx="16" ry="7.5" transform="rotate(148 108 132)" fill="currentColor" opacity="0.2"/>
+    <ellipse cx="148" cy="98" rx="17" ry="7.5" transform="rotate(140 148 98)" fill="currentColor" opacity="0.26"/>
+    <ellipse cx="186" cy="68" rx="14" ry="6.5" transform="rotate(132 186 68)" fill="currentColor" opacity="0.22"/>
+    <ellipse class="atmosphere-breathe" cx="118" cy="158" rx="6" ry="8" transform="rotate(-18 118 158)" fill="var(--secondary-main)" opacity="0.55"/>
+    <ellipse class="atmosphere-breathe" cx="158" cy="112" rx="5.5" ry="7.5" transform="rotate(-22 158 112)" fill="var(--secondary-main)" opacity="0.5"/>
+    <ellipse cx="196" cy="82" rx="5" ry="7" transform="rotate(-28 196 82)" fill="var(--secondary-main)" opacity="0.45"/>
+  </g>
+</svg>

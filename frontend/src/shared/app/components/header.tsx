@@ -32,7 +32,7 @@ export default function Header({
   ];
 
   return (
-    <div className="flex bg-primary-50 dark:bg-primary-900 w-full h-[72px] rounded-[12px] py-3 px-4 items-center gap-0.5 md:gap-6">
+    <div className="flex bg-primary-50 dark:bg-primary-900 w-full h-[72px] rounded-[var(--radius)] py-3 px-4 items-center gap-0.5 md:gap-6 [box-shadow:var(--custom-shadow)]">
       {isSideBarOpen === "collapsed" ? (
         <div className="w-10 h-10 flex md:hidden items-center justify-center shrink-0">
           <ExpandLight
@@ -44,7 +44,9 @@ export default function Header({
         ""
       )}
 
-      <SearchBox />
+      <div className="flex-1 min-w-0">
+        <SearchBox />
+      </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

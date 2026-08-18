@@ -1,0 +1,17 @@
+<svg viewBox="0 0 260 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g class="atmosphere-float">
+    <path d="M168 210L168 150" stroke="var(--secondary-main)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M168 156L124 210H212L168 156Z" fill="currentColor" opacity="0.22"/>
+    <path d="M168 124L132 172H204L168 124Z" fill="currentColor" opacity="0.3"/>
+    <path d="M168 96L140 140H196L168 96Z" fill="currentColor" opacity="0.38"/>
+  </g>
+  <g class="atmosphere-breathe" style="transform-origin: bottom center">
+    <path d="M64 214C64 214 48 176 64 158C80 140 96 158 88 176C80 194 72 206 64 214Z" fill="currentColor" opacity="0.28"/>
+    <path d="M88 218C88 218 78 188 92 174C106 160 118 176 110 190C102 204 96 212 88 218Z" fill="currentColor" opacity="0.22"/>
+    <rect x="61" y="210" width="6" height="16" rx="2" fill="var(--secondary-main)" opacity="0.55"/>
+    <rect x="86" y="214" width="5" height="12" rx="2" fill="var(--secondary-main)" opacity="0.45"/>
+  </g>
+  <circle cx="42" cy="200" r="3" fill="currentColor" opacity="0.2"/>
+  <circle cx="118" cy="208" r="2.5" fill="currentColor" opacity="0.18"/>
+  <circle cx="214" cy="198" r="2" fill="currentColor" opacity="0.16"/>
+</svg>

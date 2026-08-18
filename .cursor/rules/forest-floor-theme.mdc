@@ -1,0 +1,27 @@
+---
+description: Forest Floor visual language for frontend work — warm earth, verdant green, no dark mode.
+globs: frontend/**/*.{tsx,ts,css,html}
+alwaysApply: false
+---
+
+# Forest Floor
+
+Read `frontend/THEME.md` before changing frontend UI. That file is the source of truth for intent, color scale, type, radius, atmosphere, and motion.
+
+## Must
+
+- Stay on the **light Forest Floor** palette in `frontend/src/index.css`. Canvas is mushroom beige (`#EFE8DC`), primary is deep woodland green (`#3E5648`), secondary is bark (`#8A6748`), neutrals are warm taupe — never cool gray or white.
+- Use existing tokens (`bg-primary-main`, `text-gray-700`, `bg-base-light`, …). Do not one-off hex or Tailwind’s default gray/indigo.
+- UI type is **Instrument Sans**. Display/logo/headings that should feel like the product use **Source Serif 4** (`font-serif`).
+- Radius stays wood-like (`--radius: 0.4rem`). Shadows stay warm (`--custom-shadow`).
+- One theme only. Do not add dark mode.
+
+## Atmosphere
+
+Botanicals in `frontend/src/shared/components/atmosphere.ts` are required chrome. Cycle a shuffled deck (~hourly, no consecutive repeats, no interval timer). Morph with **mist dissolve** only. When the sidebar is open, the motif lives in the sidebar; when it closes, fade it to the page corner. Do not cover it with new opaque panels without relocating it.
+
+## Must not
+
+- Indigo, violet, neon green, pure white fields, cool gray text.
+- Pills, loud shadows, high-frequency animation, extra grain overlays.
+- Theme pickers, alternate palettes, or a second botanicals transition.

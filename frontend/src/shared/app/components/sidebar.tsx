@@ -17,6 +17,7 @@ import {
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
 import { cn } from "@/shared/lib/utils";
+import { SidebarAtmosphere } from "@/shared/theme/atmosphere";
 
 import CollapseLight from "../../assets/icons/collapse-icon.svg?react";
 import ExpandLight from "../../assets/icons/expand-icon.svg?react";
@@ -75,19 +76,19 @@ export default function Sidebar({
   return (
     <div
       className={cn(
-        "flex flex-col transition-all ease-in-out duration-300 rounded-r-[12px] md:rounded-[12px] bg-primary-50 dark:bg-primary-900",
+        "relative z-10 flex flex-col overflow-hidden transition-all ease-in-out duration-300 rounded-r-[var(--radius)] md:rounded-[var(--radius)] bg-primary-50 dark:bg-primary-900",
         isSideBarOpen === "expanded" ? "md:w-[280px] w-full" : "md:w-24 w-0",
       )}
     >
       <div
         className={cn(
-          "flex items-center justify-between px-5 transition-all ease-in-out duration-300 min-h-[72px]",
+          "flex items-center justify-between px-5 transition-all ease-in-out duration-300 min-h-[72px] relative z-10",
           isSideBarOpen === "expanded" ? "" : "justify-center",
         )}
       >
         <span
           className={cn(
-            "font-bold text-[18px] text-primary-main dark:text-primary-50 overflow-hidden whitespace-nowrap shrink-0 transition-all duration-300",
+            "font-serif font-bold text-[18px] text-primary-main dark:text-primary-50 overflow-hidden whitespace-nowrap shrink-0 transition-all duration-300 tracking-[var(--heading-tracking)]",
             isSideBarOpen === "expanded"
               ? "opacity-100 w-auto"
               : "opacity-0 w-0",
@@ -111,7 +112,7 @@ export default function Sidebar({
 
       <div
         className={cn(
-          " flex-1 flex-col border-y border-primary-200 dark:border-primary-800 gap-6 py-4 px-5",
+          "relative z-10 flex-1 flex-col border-y border-primary-200 dark:border-primary-800 gap-6 py-4 px-5",
           isSideBarOpen === "collapsed" ? "hidden md:flex" : "flex",
         )}
       >
@@ -157,7 +158,7 @@ export default function Sidebar({
           );
         })}
       </div>
-      <div className="flex py-6 px-5">
+      <div className="relative z-10 flex py-6 px-5">
         <DropdownMenu open={isProfileOpen} onOpenChange={setProfileOpen}>
           <DropdownMenuTrigger asChild>
             <div
@@ -229,6 +230,7 @@ export default function Sidebar({
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      <SidebarAtmosphere visible={isSideBarOpen === "expanded"} />
     </div>
   );
 }

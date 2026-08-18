@@ -1,0 +1,18 @@
+<svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <g class="atmosphere-sway" style="transform-origin: bottom center">
+    <path d="M140 268C140 268 136 190 108 150C80 110 48 92 28 88" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M140 268C140 268 148 188 176 146C204 104 236 88 256 86" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M140 268C140 268 140 200 140 118" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M118 210C98 192 98 206 78 198" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+    <path d="M122 176C97 158 97 166 72 158" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.65"/>
+    <path d="M128 146C107 128 107 130 86 122" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
+    <path d="M162 208C182 190 182 204 202 196" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+    <path d="M158 174C183 156 183 162 208 154" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.65"/>
+    <path d="M152 144C174 126 174 128 196 120" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.75"/>
+    <path d="M132 112C122 94 122 86 112 78" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+    <path d="M148 110C158 92 158 82 168 74" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.65"/>
+    <ellipse cx="28" cy="88" rx="7" ry="11" transform="rotate(-28 28 88)" fill="currentColor" opacity="0.35"/>
+    <ellipse cx="256" cy="86" rx="7" ry="11" transform="rotate(24 256 86)" fill="currentColor" opacity="0.35"/>
+    <ellipse cx="140" cy="112" rx="8" ry="13" fill="currentColor" opacity="0.28"/>
+  </g>
+</svg>

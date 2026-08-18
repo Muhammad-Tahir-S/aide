@@ -30,7 +30,7 @@ const buttonVariants = cva(
         md: "h-12 px-6 [&_svg:not([class*='size-'])]:size-6 text-[16px] font-medium rounded-[12px] gap-2",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         sidebarItem:
-          "h-12 justify-start w-full px-5 gap-2 rounded-[12px] [&_svg:not([class*='size-'])]:size-6",
+          "h-12 justify-start w-full px-5 gap-2 rounded-[var(--radius)] [&_svg:not([class*='size-'])]:size-6",
         icon: "size-9",
       },
     },
