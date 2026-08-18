@@ -1,43 +1,36 @@
-import { type ReactNode, useState } from "react";
+import { type ReactNode } from "react";
 import { useLocation } from "react-router";
 
-import { cn } from "@/shared/lib/utils";
 import { Atmosphere } from "@/shared/theme";
 
+import { SidebarChromeProvider } from "../sidebar/chrome";
 import Header from "./header";
 import Sidebar from "./sidebar";
 
-export default function RootLayout(props: { children: ReactNode }) {
-  const [isSideBarOpen, setIsSideBarOpen] = useState<"collapsed" | "expanded">(
-    "expanded",
+function Chrome({ children }: { children: ReactNode }) {
+  return (
+    <div className="sidebar-shell relative flex h-dvh w-dvw overflow-hidden">
+      <Atmosphere withSidebar />
+      <Sidebar />
+      <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+        <Header />
+        <div className="flex min-h-0 flex-1 overflow-auto">{children}</div>
+      </div>
+    </div>
   );
-  const { pathname } = useLocation();
+}
 
+export default function RootLayout(props: { children: ReactNode }) {
+  const { pathname } = useLocation();
   const isAuthPage = pathname.includes("/auth");
 
   if (isAuthPage || pathname === "/") {
     return <>{props.children}</>;
   }
-  return (
-    <div className="relative flex h-dvh w-dvw md:p-5 md:gap-8">
-      <Atmosphere withSidebar sidebarOpen={isSideBarOpen === "expanded"} />
-      <Sidebar
-        isSideBarOpen={isSideBarOpen}
-        setIsSideBarOpen={setIsSideBarOpen}
-      />
 
-      <div
-        className={cn(
-          "relative z-10 flex flex-col flex-1 gap-5 p-5 md:p-0 min-h-0",
-          isSideBarOpen === "expanded" ? "w-0 hidden md:flex" : "w-full",
-        )}
-      >
-        <Header
-          isSideBarOpen={isSideBarOpen}
-          setIsSideBarOpen={setIsSideBarOpen}
-        />
-        <div className="flex flex-1 min-h-0">{props.children}</div>
-      </div>
-    </div>
+  return (
+    <SidebarChromeProvider>
+      <Chrome>{props.children}</Chrome>
+    </SidebarChromeProvider>
   );
 }

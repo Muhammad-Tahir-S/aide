@@ -98,15 +98,12 @@ function MotifStage({
   );
 }
 
-export function SidebarAtmosphere({ visible }: { visible: boolean }) {
+export function SidebarAtmosphere() {
   const { motifId } = useAtmosphere();
 
   return (
     <div
-      className={cn(
-        "atmosphere-piece pointer-events-none absolute -bottom-6 -left-5 z-0 h-[min(38vh,240px)] w-[min(38vh,240px)] text-primary-main transition-opacity duration-700 ease-out motion-reduce:transition-none md:h-[min(34vh,220px)] md:w-[min(34vh,220px)]",
-        visible ? "opacity-(--atmosphere-opacity)" : "opacity-0",
-      )}
+      className="sidebar-rail-atmosphere atmosphere-piece pointer-events-none absolute -bottom-6 -left-5 z-0 h-[min(38vh,240px)] w-[min(38vh,240px)] text-primary-main md:h-[min(34vh,220px)] md:w-[min(34vh,220px)]"
       aria-hidden
     >
       <MotifStage
@@ -119,14 +116,11 @@ export function SidebarAtmosphere({ visible }: { visible: boolean }) {
 }
 
 export default function Atmosphere({
-  sidebarOpen = false,
   withSidebar = false,
 }: {
-  sidebarOpen?: boolean;
   withSidebar?: boolean;
 }) {
   const { motifId } = useAtmosphere();
-  const showCornerLeft = !withSidebar || !sidebarOpen;
 
   return (
     <div
@@ -137,20 +131,15 @@ export default function Atmosphere({
         motifId={motifId}
         preserveAspectRatio="xMidYMax meet"
         className={cn(
-          "atmosphere-piece absolute -bottom-8 -left-6 h-[min(48vh,380px)] w-[min(48vh,380px)] transition-opacity duration-700 ease-out motion-reduce:transition-none",
-          withSidebar && "md:left-31",
-          showCornerLeft ? "opacity-(--atmosphere-opacity)" : "opacity-0",
+          "page-motif-left atmosphere-piece absolute -bottom-8 -left-6 h-[min(48vh,380px)] w-[min(48vh,380px)]",
+          withSidebar && "md:left-12",
+          "opacity-(--atmosphere-opacity)",
         )}
       />
       <MotifStage
         motifId={motifId}
         preserveAspectRatio="xMidYMin meet"
-        className={cn(
-          "atmosphere-piece absolute -top-10 -right-8 h-[min(32vh,260px)] w-[min(32vh,260px)] rotate-12 transition-opacity duration-700 ease-out motion-reduce:transition-none",
-          withSidebar && sidebarOpen
-            ? "opacity-0 md:opacity-[calc(var(--atmosphere-opacity)*0.65)]"
-            : "opacity-[calc(var(--atmosphere-opacity)*0.65)]",
-        )}
+        className="page-motif-right atmosphere-piece absolute -top-10 -right-8 h-[min(32vh,260px)] w-[min(32vh,260px)] rotate-12 opacity-[calc(var(--atmosphere-opacity)*0.65)]"
       />
     </div>
   );

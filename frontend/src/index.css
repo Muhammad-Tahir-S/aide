@@ -477,4 +477,109 @@ body::after {
     animation: none;
     transition: none;
   }
+
+  .sidebar-spacer,
+  .sidebar-rail,
+  .sidebar-rail-fade,
+  .sidebar-rail-atmosphere,
+  .page-motif-left,
+  .page-motif-right,
+  a.sidebar-nav-item,
+  a.sidebar-nav-item svg {
+    transition: none;
+  }
+}
+
+.sidebar-spacer {
+  width: 48px;
+  transition: width 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sidebar-spacer[data-mode="expanded"] {
+  width: 216px;
+}
+
+.sidebar-rail {
+  width: 48px;
+  transition:
+    width 300ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sidebar-rail[data-mode="expanded"],
+.sidebar-rail[data-mode="hover"]:hover,
+.sidebar-rail[data-mode="hover"][data-menus="open"] {
+  width: 216px;
+}
+
+.sidebar-rail[data-mode="hover"] {
+  transition-delay: 160ms;
+}
+
+.sidebar-rail[data-mode="hover"]:hover,
+.sidebar-rail[data-mode="hover"][data-menus="open"] {
+  transition-delay: 0ms;
+  box-shadow: var(--custom-shadow);
+}
+
+.sidebar-rail-body {
+  width: 100%;
+}
+
+.sidebar-rail[data-mode="expanded"] .sidebar-rail-body,
+.sidebar-rail[data-mode="hover"] .sidebar-rail-body {
+  width: 216px;
+}
+
+.sidebar-rail-fade {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease-out;
+}
+
+.sidebar-rail[data-mode="expanded"] .sidebar-rail-fade,
+.sidebar-rail[data-mode="hover"]:hover .sidebar-rail-fade,
+.sidebar-rail[data-mode="hover"][data-menus="open"] .sidebar-rail-fade {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-rail-atmosphere {
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+
+.sidebar-rail[data-mode="expanded"] .sidebar-rail-atmosphere,
+.sidebar-rail[data-mode="hover"]:hover .sidebar-rail-atmosphere,
+.sidebar-rail[data-mode="hover"][data-menus="open"] .sidebar-rail-atmosphere {
+  opacity: var(--atmosphere-opacity);
+}
+
+.page-motif-left {
+  transition: opacity 700ms ease-out;
+}
+
+.page-motif-right {
+  transition: opacity 700ms ease-out;
+}
+
+a.sidebar-nav-item,
+a.sidebar-nav-item svg {
+  transition: color 160ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+a.sidebar-nav-item[aria-current="page"],
+a.sidebar-nav-item[aria-current="page"] svg,
+a.sidebar-nav-item[aria-current="page"]:hover,
+a.sidebar-nav-item[aria-current="page"]:hover svg {
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .sidebar-shell:has(.sidebar-rail[data-mode="expanded"]) .page-motif-left,
+  .sidebar-shell:has(.sidebar-rail[data-mode="hover"]:hover) .page-motif-left,
+  .sidebar-shell:has(.sidebar-rail[data-mode="hover"][data-menus="open"])
+    .page-motif-left {
+    opacity: 0;
+  }
 }

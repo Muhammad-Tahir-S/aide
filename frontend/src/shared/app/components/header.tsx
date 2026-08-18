@@ -1,3 +1,5 @@
+import { PanelLeft } from "lucide-react";
+
 import Calendar from "@/shared/assets/icons/calendar.svg?react";
 import HamburgerMenu from "@/shared/assets/icons/hamburger-menu.svg?react";
 import Notification from "@/shared/assets/icons/notification.svg?react";
@@ -8,77 +10,77 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
+import { cn } from "@/shared/lib/utils";
 
-import ExpandLight from "../../assets/icons/expand-icon.svg?react";
+import { useSidebarChrome } from "../sidebar/chrome";
 
-export default function Header({
-  isSideBarOpen,
-  setIsSideBarOpen,
-}: {
-  isSideBarOpen: "expanded" | "collapsed";
-  setIsSideBarOpen: React.Dispatch<
-    React.SetStateAction<"expanded" | "collapsed">
-  >;
-}) {
-  const actions = [
-    {
-      label: "Notifications",
-      icon: Notification,
-    },
-    {
-      label: "Calendar",
-      icon: Calendar,
-    },
-  ];
+const actions = [
+  { label: "Notifications", icon: Notification },
+  { label: "Calendar", icon: Calendar },
+];
+
+export default function Header() {
+  const { setMobileOpen, variant } = useSidebarChrome();
 
   return (
-    <div className="flex bg-primary-50 dark:bg-primary-900 w-full h-[72px] rounded-[var(--radius)] py-3 px-4 items-center gap-0.5 md:gap-6 [box-shadow:var(--custom-shadow)]">
-      {isSideBarOpen === "collapsed" ? (
-        <div className="w-10 h-10 flex md:hidden items-center justify-center shrink-0">
-          <ExpandLight
-            onClick={() => setIsSideBarOpen("expanded")}
-            className="text-primary-200 dark:text-primary-pressed w-5 h-5 cursor-pointer"
-          />
-        </div>
-      ) : (
-        ""
+    <header
+      className={cn(
+        "flex h-13 w-full shrink-0 items-center gap-1 border-b px-2 md:gap-3 md:px-3",
+        variant.rail,
+        variant.border,
       )}
+    >
+      <button
+        type="button"
+        aria-label="Open sidebar"
+        onClick={() => setMobileOpen(true)}
+        className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main md:hidden"
+      >
+        <PanelLeft className="size-4" strokeWidth={1.5} />
+      </button>
 
-      <div className="flex-1 min-w-0">
+      <div className="min-w-0 flex-1">
         <SearchBox />
       </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="w-10 h-10 flex md:hidden items-center justify-center shrink-0">
-            <HamburgerMenu className="stroke-gray-500 dark:stroke-gray-300" />
-          </div>
+          <button
+            type="button"
+            aria-label="More"
+            className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 md:hidden"
+          >
+            <HamburgerMenu className="size-4 stroke-current" />
+          </button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[200px] mx-5">
+        <DropdownMenuContent className="w-[200px] py-1.5">
           {actions.map((action) => {
             const Icon = action.icon;
             return (
-              <DropdownMenuItem key={action.label} className=" group">
-                <Icon className="stroke-gray-500 dark:stroke-gray-300 group-hover:stroke-primary-hover dark:group-hover:stroke-primary-main" />
+              <DropdownMenuItem key={action.label} className="group py-1.5">
+                <Icon className="stroke-gray-500 group-hover:stroke-primary-hover" />
                 <span>{action.label}</span>
               </DropdownMenuItem>
             );
           })}
         </DropdownMenuContent>
       </DropdownMenu>
-      <div className=" hidden md:flex items-center">
+
+      <div className="hidden items-center md:flex">
         {actions.map((action) => {
           const Icon = action.icon;
           return (
-            <div
-              className="flex items-center w-10 h-10  justify-center shrink-0"
+            <button
+              type="button"
+              className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main"
               key={action.label}
+              aria-label={action.label}
             >
-              <Icon className="stroke-gray-500 dark:stroke-gray-300 group-hover:stroke-primary-hover dark:group-hover:stroke-primary-main " />
-            </div>
+              <Icon className="size-4" />
+            </button>
           );
         })}
       </div>
-    </div>
+    </header>
   );
 }
