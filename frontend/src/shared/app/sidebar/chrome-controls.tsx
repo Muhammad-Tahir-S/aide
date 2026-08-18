@@ -84,8 +84,8 @@ export function SidebarBrand() {
 }
 
 export function SidebarProfile() {
-  const { mode, variant, setMenusOpen } = useSidebarChrome();
-  const expanded = mode === "expanded";
+  const { mode, variant, setMenusOpen, isMobile } = useSidebarChrome();
+  const expanded = isMobile || mode === "expanded";
 
   return (
     <DropdownMenu modal={false} onOpenChange={setMenusOpen}>

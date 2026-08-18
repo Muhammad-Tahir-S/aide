@@ -1,13 +1,13 @@
+import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-} from "@/shared/components/ui/sheet";
+  Dialog,
+  DialogDescription,
+  DialogPortal,
+  DialogTitle,
+} from "@/shared/components/ui/dialog";
 import {
   Tooltip,
   TooltipContent,
@@ -253,24 +253,23 @@ export default function Sidebar() {
         </aside>
       </div>
 
-      <Sheet open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
-        <SheetContent
-          side="left"
-          className={cn(
-            "w-[min(86vw,18rem)] gap-0 p-0 shadow-none sm:max-w-[18rem] [&_.sidebar-rail-fade]:pointer-events-auto [&_.sidebar-rail-fade]:opacity-100 [&_.sidebar-rail-atmosphere]:opacity-(--atmosphere-opacity)",
-            variant.rail,
-            variant.border,
-          )}
-          showCloseButton={false}
-        >
-          <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>App navigation</SheetDescription>
-          </SheetHeader>
-          <SidebarAtmosphere />
-          <SidebarBody onNavigate={() => setMobileOpen(false)} />
-        </SheetContent>
-      </Sheet>
+      <Dialog open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
+        <DialogPortal>
+          <DialogPrimitive.Content
+            className={cn(
+              "sidebar-screen relative isolate flex flex-col overflow-hidden outline-none",
+              variant.rail,
+            )}
+          >
+            <DialogTitle className="sr-only">Sidebar</DialogTitle>
+            <DialogDescription className="sr-only">
+              App navigation
+            </DialogDescription>
+            <SidebarAtmosphere />
+            <SidebarBody onNavigate={() => setMobileOpen(false)} />
+          </DialogPrimitive.Content>
+        </DialogPortal>
+      </Dialog>
     </>
   );
 }
