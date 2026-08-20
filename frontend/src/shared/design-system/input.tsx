@@ -37,7 +37,7 @@ function Input({
             data-slot="input"
             className={cn(
               "peer",
-              "file:text-foreground placeholder:text-gray-400 flex h-13 w-full min-w-0 rounded-md bg-gray-100 px-3 py-1 text-base-dark shadow-xs transition-[color,box-shadow] outline-none font-medium file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 md:text-sm",
+              "file:text-foreground placeholder:text-gray-400 flex h-13 w-full min-w-0 rounded-md bg-gray-100 px-3 py-1 text-base-dark text-[16px] shadow-xs transition-[color,box-shadow] outline-none font-medium file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-400 md:text-sm",
               "focus:border-primary-400 focus:bg-transparent focus:border-[2px]",
               "aria-invalid:border-error-main aria-invalid:text-error-main",
               "[&:not(:focus):not(:placeholder-shown)]:bg-primary-25",

@@ -3,7 +3,7 @@ import { Button } from "./button";
 
 export default function SocialButton({ buttonText }: { buttonText: string }) {
   return (
-    <Button className="h-11 bg-transparent text-gray-700 border-gray-300 border-[2px] hover:bg-primary-50 hover:border-primary-50 focus:border-primary-400 focus:bg-transparent">
+    <Button className="h-11 bg-transparent text-gray-700 border-gray-300 border-[2px] hover:bg-primary-50 hover:border-primary-50 active:bg-primary-50 active:border-primary-50 focus:border-primary-400 focus:bg-transparent">
       <SocialIcon />
       {buttonText}
     </Button>

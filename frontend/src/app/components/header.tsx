@@ -34,7 +34,7 @@ export default function Header() {
         type="button"
         aria-label="Open sidebar"
         onClick={() => setMobileOpen(true)}
-        className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main md:hidden"
+        className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main md:hidden"
       >
         <PanelLeft className="size-4" strokeWidth={1.5} />
       </button>
@@ -52,7 +52,7 @@ export default function Header() {
           <button
             type="button"
             aria-label="More"
-            className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 md:hidden"
+            className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main md:hidden"
           >
             <HamburgerMenu className="size-4 stroke-current" />
           </button>
@@ -62,7 +62,7 @@ export default function Header() {
             const Icon = action.icon;
             return (
               <DropdownMenuItem key={action.label} className="group py-1.5">
-                <Icon className="stroke-gray-500 group-hover:stroke-primary-hover" />
+                <Icon className="stroke-gray-500 group-hover:stroke-primary-hover group-active:stroke-primary-hover group-data-[highlighted]:stroke-primary-hover" />
                 <span>{action.label}</span>
               </DropdownMenuItem>
             );
@@ -76,7 +76,7 @@ export default function Header() {
           return (
             <button
               type="button"
-              className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main"
+              className="flex size-8 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main"
               key={action.label}
               aria-label={action.label}
             >

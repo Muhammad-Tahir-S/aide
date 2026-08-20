@@ -72,7 +72,7 @@ export function SidebarBrand() {
           type="button"
           aria-label="Close sidebar"
           onClick={() => setMobileOpen(false)}
-          className="mr-2 flex size-8 shrink-0 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main"
+          className="mr-2 flex size-8 shrink-0 items-center justify-center rounded-(--radius) text-gray-500 hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main"
         >
           <X className="size-4" strokeWidth={1.5} />
         </button>

@@ -5,23 +5,24 @@ import * as React from "react";
 import { cn } from "@/shared/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none select-none touch-manipulation focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
         primary:
-          "bg-primary-main text-base-light hover:bg-primary-hover focus:bg-primary-pressed disabled:bg-primary-300",
+          "bg-primary-main text-base-light hover:bg-primary-hover active:bg-primary-hover focus:bg-primary-pressed disabled:bg-primary-300",
         pryOutline:
-          "text-primary-main border-[2px] border-primary-main hover:border-primary-hover hover:bg-primary-50 hover:text-primary-hover focus:text-primary-pressed focus:bg-transparent focus:border-primary-pressed disabled:border-primary-300 disabled:text-primary-300",
-        grey: "text-gray-500 border-[2px] border-gray-300 hover:text-gray-600 hover:bg-gray-25 focus:text-gray-700 disabled:text-gray-300",
+          "text-primary-main border-[2px] border-primary-main hover:border-primary-hover hover:bg-primary-50 hover:text-primary-hover active:border-primary-hover active:bg-primary-50 active:text-primary-hover focus:text-primary-pressed focus:bg-transparent focus:border-primary-pressed disabled:border-primary-300 disabled:text-primary-300",
+        grey: "text-gray-500 border-[2px] border-gray-300 hover:text-gray-600 hover:bg-gray-25 active:text-gray-600 active:bg-gray-25 focus:text-gray-700 disabled:text-gray-300",
         secondary:
-          "bg-secondary-main text-base-light hover:bg-secondary-600 focus:bg-secondary-700 disabled:bg-secondary-300",
+          "bg-secondary-main text-base-light hover:bg-secondary-600 active:bg-secondary-600 focus:bg-secondary-700 disabled:bg-secondary-300",
         error:
-          "bg-error-main text-base-light hover:bg-error-hover focus:bg-error-pressed disabled:bg-error-300",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-error-main text-base-light hover:bg-error-hover active:bg-error-hover focus:bg-error-pressed disabled:bg-error-300",
+        ghost:
+          "hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline active:underline",
         sidebarItem:
-          "hover:bg-primary-25 hover:text-primary-main text-primary-main focus:bg-primary-hover focus:text-primary-25",
+          "hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main text-primary-main focus:bg-primary-hover focus:text-primary-25",
       },
       size: {
         default: "h-9 px-4 has-[>svg]:px-3",

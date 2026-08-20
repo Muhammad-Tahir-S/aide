@@ -5,7 +5,7 @@ import AuthImage from "@/shared/assets/images/authLayout.jpg";
 
 export default function AuthLayout() {
   return (
-    <div className="relative flex h-dvh w-dvw">
+    <div className="auth-shell relative flex h-dvh w-dvw">
       <Atmosphere />
       <div className="relative z-10 w-[50%] hidden md:flex py-[40px] pl-[40px]">
         <img

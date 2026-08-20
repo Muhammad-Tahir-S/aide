@@ -1,0 +1,30 @@
+---
+description: Native-feeling mobile web UX. Apply when implementing frontend UI, CSS, viewport, tap/hover, inputs, scroll, carousels, safe areas, status bar, or mobile layout.
+globs: frontend/**/*.{tsx,ts,css,html}
+alwaysApply: false
+---
+
+# Native mobile feel
+
+Web UIs in this app should feel like a phone app, not a desktop page squeezed onto a screen. Apply these when adding or changing frontend layout, chrome, controls, or global CSS.
+
+## Must
+
+- **Hover:** put `:hover` (and hover-only Tailwind `hover:`) inside `@media (hover: hover) and (pointer: fine)` so tap does not leave a stuck hover. Prefer `active:` / `focus:` for press feedback on touch.
+- **Tap flash:** set `-webkit-tap-highlight-color: transparent` on interactive surfaces (global in `frontend/src/index.css` is fine).
+- **Height:** full-app shells use `100dvh` / `h-dvh` (already on `root-layout` and `.sidebar-screen`). Use `100svh` only for a first-screen hero that must ignore the expanding URL bar.
+- **Inputs:** control `font-size` must be **at least 16px** on small viewports. Do not use `text-sm` (14px) as the mobile input size — `md:text-sm` on desktop is OK.
+- **Tap lag:** give visual press state on `pointerdown` / `:active`, and `touch-action: manipulation` on tappable controls (kills 300ms double-tap zoom).
+- **Overscroll:** `overscroll-behavior: none` on `html, body` so pull-to-refresh does not hijack in-app scroll.
+- **Notch:** `viewport-fit=cover` on the viewport meta in `frontend/index.html`, then pad with `env(safe-area-inset-*)`.
+- **Selection:** `user-select: none` on buttons, icon hits, and other controls whose label is not meant to copy. Do not disable selection on notes/task body text.
+- **Carousels / horizontal gestures:** `touch-action: pan-y` on the gesture surface so vertical page scroll still works.
+- **Status bar:** `<meta name="theme-color" content="#EFE8DC">` (Forest Floor canvas). Light theme only — do not add a dark `theme-color`.
+- **Verify on a real phone**, not only Chrome DevTools device mode.
+
+## Must not
+
+- `100vh` for app chrome (iOS URL bar makes it wrong).
+- Hover-only press feedback.
+- Input `font-size` under 16px on mobile.
+- `user-select: none` on readable content (notes, task titles in view mode).
