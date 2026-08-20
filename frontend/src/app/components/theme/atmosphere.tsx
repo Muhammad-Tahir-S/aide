@@ -145,7 +145,7 @@ export function PageMotifs({
       />
       <MotifCopy
         preserveAspectRatio="xMidYMin meet"
-        className="page-motif-right absolute -top-10 -right-8 h-[min(32vh,260px)] w-[min(32vh,260px)] rotate-12 opacity-[calc(var(--atmosphere-opacity)*0.65)]"
+        className="page-motif-right absolute top-[54px] -right-8 h-[min(32vh,260px)] w-[min(32vh,260px)] rotate-12 opacity-[calc(var(--atmosphere-opacity)*0.65)]"
       />
     </div>
   );

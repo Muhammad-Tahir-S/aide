@@ -5,7 +5,7 @@ import * as React from "react";
 import { cn } from "@/shared/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none select-none touch-manipulation focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,background-color,border-color,box-shadow,transform,opacity] duration-[160ms] ease-out active:scale-[0.97] motion-reduce:active:scale-100 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-5 shrink-0 [&_svg]:shrink-0 outline-none select-none touch-manipulation focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 aria-invalid:border-destructive",
   {
     variants: {
       variant: {
@@ -20,7 +20,7 @@ const buttonVariants = cva(
           "bg-error-main text-base-light hover:bg-error-hover active:bg-error-hover focus:bg-error-pressed disabled:bg-error-300",
         ghost:
           "hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline active:underline",
+        link: "text-primary underline-offset-4 hover:underline active:underline active:scale-100",
         sidebarItem:
           "hover:bg-primary-25 hover:text-primary-main active:bg-primary-25 active:text-primary-main text-primary-main focus:bg-primary-hover focus:text-primary-25",
       },
