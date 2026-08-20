@@ -41,14 +41,9 @@ export default function SignupPage() {
   return (
     <>
       <div className="flex flex-col items-center gap-3">
-        <Typography
-          variant="display-md/semibold"
-          className="dark:text-primary-25"
-        >
-          Create Account
-        </Typography>
+        <Typography variant="display-md/semibold">Create Account</Typography>
         <div className="flex items-center">
-          <Typography variant="text-md/regular" className="dark:text-gray-300">
+          <Typography variant="text-md/regular">
             Already have an account?
           </Typography>
           <Link to="/auth/signin" replace>
@@ -116,16 +111,13 @@ export default function SignupPage() {
         </form>
       </Form>
       <div className="flex text-center">
-        <Typography
-          variant="text-xs/medium"
-          className="dark:text-gray-400 text-gray-500"
-        >
+        <Typography variant="text-xs/medium" className="text-gray-500">
           By creating an account, you agree to our{" "}
-          <Link to="" className="dark:text-gray-100 text-base-dark">
+          <Link to="" className="text-base-dark">
             Terms of Service
           </Link>{" "}
           and{" "}
-          <Link to="" className="dark:text-gray-100 text-base-dark">
+          <Link to="" className="text-base-dark">
             Privacy & Cookie Statement
           </Link>
           .

@@ -19,7 +19,7 @@ function Command({
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        "bg-base-light dark:bg-gray-850 text-gray-400 flex h-full w-full flex-col overflow-hidden rounded-[var(--radius)]",
+        "bg-base-light text-gray-400 flex h-full w-full flex-col overflow-hidden rounded-[var(--radius)]",
         className,
       )}
       {...props}

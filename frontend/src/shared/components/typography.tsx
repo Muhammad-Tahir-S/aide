@@ -46,7 +46,6 @@ const Typography = forwardRef<HTMLParagraphElement, ParagraphProps>(
           textSizeStyleMap[size],
           fontWeightStyleMap[weight],
           "text-gray-700",
-          "dark:text-primary-50",
 
           {
             "overflow-hidden text-ellipsis max-w-full whitespace-nowrap ":

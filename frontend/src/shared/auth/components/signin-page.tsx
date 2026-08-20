@@ -36,14 +36,9 @@ export default function SigninPage() {
   return (
     <>
       <div className="flex flex-col items-center gap-3">
-        <Typography
-          variant="display-md/semibold"
-          className="dark:text-primary-25"
-        >
-          Log In
-        </Typography>
+        <Typography variant="display-md/semibold">Log In</Typography>
         <div className="flex items-center">
-          <Typography variant="text-md/regular" className="dark:text-gray-300">
+          <Typography variant="text-md/regular">
             Don’t have an account?
           </Typography>
           <Link to="/auth/signup" replace>
