@@ -2,14 +2,15 @@ import { Command as CommandPrimitive } from "cmdk";
 import { SearchIcon } from "lucide-react";
 import * as React from "react";
 
+import { cn } from "@/shared/lib/utils";
+
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/shared/components/ui/dialog";
-import { cn } from "@/shared/lib/utils";
+} from "./dialog";
 
 function Command({
   className,

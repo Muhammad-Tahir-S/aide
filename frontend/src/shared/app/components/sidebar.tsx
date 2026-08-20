@@ -1,4 +1,5 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Layers } from "lucide-react";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 
@@ -7,12 +8,10 @@ import {
   DialogDescription,
   DialogPortal,
   DialogTitle,
-} from "@/shared/components/ui/dialog";
-import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
-} from "@/shared/components/ui/tooltip";
+} from "@/shared/design-system";
 import { cn } from "@/shared/lib/utils";
 import { SidebarAtmosphere } from "@/shared/theme/atmosphere";
 
@@ -28,21 +27,37 @@ import type { SidebarChromeStyle } from "../sidebar/variants";
 const INDICATOR_TRANSITION =
   "transition-transform duration-[180ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none";
 
-const navItems = [
+const productNavItems = [
   { title: "Task Manager", url: "/tasks", kind: "tasks" as const },
   { title: "Notes Manager", url: "/notes", kind: "notes" as const },
 ];
+
+const navItems = import.meta.env.DEV
+  ? [
+      ...productNavItems,
+      {
+        title: "Design system",
+        url: "/design-system",
+        kind: "design-system" as const,
+      },
+    ]
+  : productNavItems;
 
 function NavIcon({
   kind,
   variant,
   className,
 }: {
-  kind: "tasks" | "notes";
+  kind: (typeof navItems)[number]["kind"];
   variant: SidebarChromeStyle;
   className?: string;
 }) {
-  const Icon = kind === "tasks" ? variant.icon : variant.notesIcon;
+  const Icon =
+    kind === "tasks"
+      ? variant.icon
+      : kind === "notes"
+        ? variant.notesIcon
+        : Layers;
   return (
     <Icon strokeWidth={1.5} className={cn(variant.iconClass, className)} />
   );

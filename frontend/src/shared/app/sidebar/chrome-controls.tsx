@@ -6,13 +6,11 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/shared/components/ui/avatar";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu";
+} from "@/shared/design-system";
 import { cn } from "@/shared/lib/utils";
 
 import { useSidebarChrome } from "./chrome";

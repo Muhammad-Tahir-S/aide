@@ -5,7 +5,7 @@ import CheckCircle from "@/shared/assets/icons/check-circle.svg?react";
 import RemoveCircle from "@/shared/assets/icons/remove-circle.svg?react";
 import { cn } from "@/shared/lib/utils";
 
-import Typography from "../typography";
+import Typography from "./typography";
 
 interface InputProps extends React.ComponentProps<"input"> {
   rightIcon?: ReactNode;

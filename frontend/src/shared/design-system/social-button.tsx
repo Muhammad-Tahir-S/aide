@@ -1,5 +1,5 @@
 import SocialIcon from "../assets/icons/google-social-icon.svg?react";
-import { Button } from "./ui/button";
+import { Button } from "./button";
 
 export default function SocialButton({ buttonText }: { buttonText: string }) {
   return (

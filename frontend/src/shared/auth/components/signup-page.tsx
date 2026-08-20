@@ -5,18 +5,18 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import { z } from "zod";
 
-import SocialButton from "@/shared/components/social-button";
-import Typography from "@/shared/components/typography";
-import { Button } from "@/shared/components/ui/button";
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/shared/components/ui/form";
-import { Input } from "@/shared/components/ui/input";
-import { Separator } from "@/shared/components/ui/separator";
+  Input,
+  Separator,
+  SocialButton,
+  Typography,
+} from "@/shared/design-system";
 
 import EmailIcon from "../../assets/icons/email.svg?react";
 import UserIcon from "../../assets/icons/user.svg?react";

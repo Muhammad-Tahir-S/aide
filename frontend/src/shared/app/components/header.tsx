@@ -3,13 +3,13 @@ import { PanelLeft } from "lucide-react";
 import Calendar from "@/shared/assets/icons/calendar.svg?react";
 import HamburgerMenu from "@/shared/assets/icons/hamburger-menu.svg?react";
 import Notification from "@/shared/assets/icons/notification.svg?react";
-import SearchBox from "@/shared/components/search-box";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/shared/components/ui/dropdown-menu";
+  SearchBox,
+} from "@/shared/design-system";
 import { cn } from "@/shared/lib/utils";
 
 import { useSidebarChrome } from "../sidebar/chrome";
