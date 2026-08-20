@@ -12,7 +12,7 @@ export const TasksRoutes = () => {
 
   useEffect(() => {
     setLastVisitedApp("/tasks");
-  }, []);
+  }, [setLastVisitedApp]);
 
   return (
     <Routes>

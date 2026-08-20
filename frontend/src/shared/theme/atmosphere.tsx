@@ -1,6 +1,9 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 
-import { MOTIF_COMPONENTS, type MotifId } from "@/shared/components/atmosphere";
+import {
+  MOTIF_COMPONENTS,
+  type MotifId,
+} from "@/shared/design-system/atmosphere";
 import { cn } from "@/shared/lib/utils";
 
 import { MOTIF_MORPH_MS, useAtmosphere } from "./atmosphere-provider";
@@ -47,22 +50,21 @@ function MotifStage({
   const [layers, setLayers] = useState<Layer[]>([
     { key: motifId, id: motifId, phase: "in" },
   ]);
+  const [prevMotifId, setPrevMotifId] = useState(motifId);
 
-  useLayoutEffect(() => {
-    setLayers((current) => {
-      const visible = current.find((layer) => layer.phase !== "out");
-      if (visible?.id === motifId) return current;
-      if (prefersReducedMotion()) {
-        return [{ key: motifId, id: motifId, phase: "in" }];
-      }
-      return [
+  if (motifId !== prevMotifId) {
+    setPrevMotifId(motifId);
+    if (prefersReducedMotion()) {
+      setLayers([{ key: motifId, id: motifId, phase: "in" }]);
+    } else {
+      setLayers((current) => [
         ...current.map((layer) =>
           layer.phase === "out" ? layer : { ...layer, phase: "out" as const },
         ),
-        { key: `${motifId}-${Date.now()}`, id: motifId, phase: "enter" },
-      ];
-    });
-  }, [motifId]);
+        { key: `${prevMotifId}->${motifId}`, id: motifId, phase: "enter" },
+      ]);
+    }
+  }
 
   useLayoutEffect(() => {
     if (!layers.some((layer) => layer.phase === "enter")) return;

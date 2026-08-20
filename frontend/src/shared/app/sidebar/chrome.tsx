@@ -1,11 +1,4 @@
-import {
-  createContext,
-  type ReactNode,
-  useCallback,
-  useContext,
-  useMemo,
-  useState,
-} from "react";
+import { createContext, type ReactNode, useContext, useState } from "react";
 import useLocalStorage from "use-local-storage";
 
 import { useIsMobile } from "@/shared/hooks/use-mobile";
@@ -43,29 +36,19 @@ export function SidebarChromeProvider({ children }: { children: ReactNode }) {
 
   const mode = isSidebarMode(storedMode) ? storedMode : "hover";
 
-  const setMode = useCallback(
-    (next: SidebarMode) => {
-      setStoredMode(next);
-    },
-    [setStoredMode],
-  );
-
-  const value = useMemo<SidebarChromeValue>(
-    () => ({
-      mode,
-      setMode,
-      variant: SIDEBAR_CHROME,
-      isMobile,
-      mobileOpen,
-      setMobileOpen,
-      menusOpen,
-      setMenusOpen,
-    }),
-    [mode, setMode, isMobile, mobileOpen, menusOpen],
-  );
-
   return (
-    <SidebarChromeContext.Provider value={value}>
+    <SidebarChromeContext.Provider
+      value={{
+        mode,
+        setMode: setStoredMode,
+        variant: SIDEBAR_CHROME,
+        isMobile,
+        mobileOpen,
+        setMobileOpen,
+        menusOpen,
+        setMenusOpen,
+      }}
+    >
       {children}
     </SidebarChromeContext.Provider>
   );

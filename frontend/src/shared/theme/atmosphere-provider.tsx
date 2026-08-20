@@ -1,10 +1,8 @@
 import {
   createContext,
   type ReactNode,
-  useCallback,
   useContext,
   useEffect,
-  useMemo,
   useState,
 } from "react";
 import { useLocation } from "react-router";
@@ -13,7 +11,7 @@ import {
   isMotifId,
   type MotifId,
   shuffleMotifs,
-} from "@/shared/components/atmosphere";
+} from "@/shared/design-system/atmosphere";
 
 const DEFAULT_MOTIF = "fern-fronds";
 const MOTIF_STORAGE_KEY = "helper-apps-atmosphere-motif";
@@ -83,6 +81,14 @@ function takeNext(state: MotifState): MotifState {
   };
 }
 
+function maybeAdvanceMotif(): MotifState | null {
+  const state = readMotifState();
+  if (Date.now() - state.changedAt < HOUR_MS) return null;
+  const next = takeNext(state);
+  writeMotifState(next);
+  return next;
+}
+
 export const MOTIF_MORPH_MS = 2800;
 
 export function AtmosphereProvider({ children }: { children: ReactNode }) {
@@ -90,22 +96,13 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
   const [motifId, setMotifId] = useState<MotifId>(
     () => readMotifState().current,
   );
+  const [seenPath, setSeenPath] = useState(pathname);
 
-  const advance = useCallback(() => {
-    const next = takeNext(readMotifState());
-    writeMotifState(next);
-    setMotifId(next.current);
-  }, []);
-
-  const maybeAdvance = useCallback(() => {
-    const state = readMotifState();
-    if (Date.now() - state.changedAt < HOUR_MS) return;
-    advance();
-  }, [advance]);
-
-  useEffect(() => {
-    maybeAdvance();
-  }, [pathname, maybeAdvance]);
+  if (pathname !== seenPath) {
+    setSeenPath(pathname);
+    const next = maybeAdvanceMotif();
+    if (next) setMotifId(next.current);
+  }
 
   useEffect(() => {
     let timeoutId: number | undefined;
@@ -115,15 +112,16 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
       timeoutId = undefined;
     };
 
+    const tick = () => {
+      const next = maybeAdvanceMotif();
+      if (next) setMotifId(next.current);
+    };
+
     const arm = () => {
       clear();
       if (document.hidden) return;
       const remaining = HOUR_MS - (Date.now() - readMotifState().changedAt);
-      if (remaining <= 0) {
-        maybeAdvance();
-        return;
-      }
-      timeoutId = window.setTimeout(maybeAdvance, remaining);
+      timeoutId = window.setTimeout(tick, Math.max(0, remaining));
     };
 
     arm();
@@ -136,12 +134,10 @@ export function AtmosphereProvider({ children }: { children: ReactNode }) {
       clear();
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, [motifId, maybeAdvance]);
-
-  const value = useMemo<AtmosphereContextValue>(() => ({ motifId }), [motifId]);
+  }, [motifId]);
 
   return (
-    <AtmosphereContext.Provider value={value}>
+    <AtmosphereContext.Provider value={{ motifId }}>
       {children}
     </AtmosphereContext.Provider>
   );

@@ -9,10 +9,10 @@ import tseslint from "typescript-eslint";
 const baseConfig = [
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  reactHooksPlugin.configs.flat["recommended-latest"],
   {
     plugins: {
       react: reactPlugin,
-      "react-hooks": reactHooksPlugin,
       "simple-import-sort": simpleImportSortPlugin,
       prettier: prettierPlugin,
     },

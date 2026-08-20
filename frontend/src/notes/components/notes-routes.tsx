@@ -12,7 +12,7 @@ export const NotesRoutes = () => {
 
   useEffect(() => {
     setLastVisitedApp("/notes");
-  }, []);
+  }, [setLastVisitedApp]);
 
   return (
     <Routes>

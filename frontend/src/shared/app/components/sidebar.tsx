@@ -1,6 +1,6 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Layers } from "lucide-react";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { NavLink, useLocation } from "react-router";
 
 import {
@@ -152,7 +152,7 @@ function SidebarNav({
     ready: false,
   });
 
-  const updateIndicator = useCallback(() => {
+  useLayoutEffect(() => {
     const nav = navRef.current;
     const active = nav?.querySelector<HTMLElement>('[aria-current="page"]');
     if (!nav || !active) {
@@ -171,11 +171,7 @@ function SidebarNav({
       }
       return { ...current, y, height, visible: true };
     });
-  }, []);
-
-  useLayoutEffect(() => {
-    updateIndicator();
-  }, [updateIndicator, pathname]);
+  }, [pathname]);
 
   useLayoutEffect(() => {
     const frame = requestAnimationFrame(() => {
@@ -245,30 +241,9 @@ export default function Sidebar() {
   const { variant, isMobile, mobileOpen, setMobileOpen, mode, menusOpen } =
     useSidebarChrome();
 
-  return (
-    <>
-      <div
-        data-mode={mode}
-        className={cn(
-          "sidebar-spacer relative z-20 hidden h-full shrink-0 md:block",
-        )}
-      >
-        <aside
-          data-mode={mode}
-          data-menus={menusOpen ? "open" : undefined}
-          data-sidebar-mode={mode}
-          className={cn(
-            "sidebar-rail absolute inset-y-0 left-0 isolate flex flex-col overflow-hidden",
-            variant.rail,
-            "after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-30 after:w-px after:bg-gray-200",
-          )}
-        >
-          <SidebarAtmosphere />
-          <SidebarBody allowTooltip={mode === "collapsed"} />
-        </aside>
-      </div>
-
-      <Dialog open={isMobile && mobileOpen} onOpenChange={setMobileOpen}>
+  if (isMobile) {
+    return (
+      <Dialog open={mobileOpen} onOpenChange={setMobileOpen}>
         <DialogPortal>
           <DialogPrimitive.Content
             className={cn(
@@ -285,6 +260,27 @@ export default function Sidebar() {
           </DialogPrimitive.Content>
         </DialogPortal>
       </Dialog>
-    </>
+    );
+  }
+
+  return (
+    <div
+      data-mode={mode}
+      className="sidebar-spacer relative z-20 h-full shrink-0"
+    >
+      <aside
+        data-mode={mode}
+        data-menus={menusOpen ? "open" : undefined}
+        data-sidebar-mode={mode}
+        className={cn(
+          "sidebar-rail absolute inset-y-0 left-0 isolate flex flex-col overflow-hidden",
+          variant.rail,
+          "after:pointer-events-none after:absolute after:inset-y-0 after:right-0 after:z-30 after:w-px after:bg-gray-200",
+        )}
+      >
+        <SidebarAtmosphere />
+        <SidebarBody allowTooltip={mode === "collapsed"} />
+      </aside>
+    </div>
   );
 }
