@@ -146,8 +146,8 @@ body::before {
   z-index: 0;
   opacity: var(--grain-opacity);
   mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.9'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+  background-image: url("./shared/assets/images/grain.png");
+  background-size: 128px 128px;
 }
 
 #root {
@@ -244,33 +244,21 @@ body::before {
 
 .atmosphere-motif {
   overflow: visible;
-  transition:
-    opacity 2.8s ease,
-    filter 2.8s ease,
-    transform 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 2.8s ease;
 }
 
 .atmosphere-motif[data-phase="enter"],
 .atmosphere-motif[data-phase="out"] {
-  will-change: opacity, filter, transform;
+  will-change: opacity;
 }
 
-.atmosphere-motif[data-phase="enter"] {
+.atmosphere-motif[data-phase="enter"],
+.atmosphere-motif[data-phase="out"] {
   opacity: 0;
-  filter: blur(8px);
-  transform: translateY(-8px) scale(1.02);
 }
 
 .atmosphere-motif[data-phase="in"] {
   opacity: 1;
-  filter: none;
-  transform: none;
-}
-
-.atmosphere-motif[data-phase="out"] {
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(10px) scale(0.97);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -423,13 +411,4 @@ a.sidebar-nav-item[aria-current="page"]:hover svg {
 
 .sidebar-screen .sidebar-rail-atmosphere {
   opacity: var(--atmosphere-opacity);
-}
-
-@media (min-width: 768px) {
-  .sidebar-shell:has(.sidebar-rail[data-mode="expanded"]) .page-motif-left,
-  .sidebar-shell:has(.sidebar-rail[data-mode="hover"]:hover) .page-motif-left,
-  .sidebar-shell:has(.sidebar-rail[data-mode="hover"][data-menus="open"])
-    .page-motif-left {
-    opacity: 0;
-  }
 }

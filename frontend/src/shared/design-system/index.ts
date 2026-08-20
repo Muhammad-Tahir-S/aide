@@ -1,17 +1,6 @@
 export { Avatar, AvatarFallback, AvatarImage } from "./avatar";
 export { Button, buttonVariants } from "./button";
 export {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-  CommandShortcut,
-} from "./command";
-export {
   Dialog,
   DialogClose,
   DialogContent,
@@ -52,7 +41,6 @@ export {
 } from "./form";
 export { Input } from "./input";
 export { Label } from "./label";
-export { default as SearchBox } from "./search-box";
 export { Separator } from "./separator";
 export { default as SocialButton } from "./social-button";
 export {

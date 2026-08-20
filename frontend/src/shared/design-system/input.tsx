@@ -3,7 +3,7 @@ import * as React from "react";
 
 import CheckCircle from "@/shared/assets/icons/check-circle.svg?react";
 import RemoveCircle from "@/shared/assets/icons/remove-circle.svg?react";
-import { cn } from "@/shared/lib/utils";
+import { cn } from "@/shared/utils/cn";
 
 import Typography from "./typography";
 
@@ -28,7 +28,9 @@ function Input({
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-col gap-2">
-        <Typography variant="text-sm/medium">{label}</Typography>
+        {label ? (
+          <Typography variant="text-sm/medium">{label}</Typography>
+        ) : null}
         <div className="flex items-center relative">
           <input
             type={type}
@@ -70,9 +72,7 @@ function Input({
             {helperText}
           </Typography>
         </div>
-      ) : (
-        ""
-      )}
+      ) : null}
     </div>
   );
 }

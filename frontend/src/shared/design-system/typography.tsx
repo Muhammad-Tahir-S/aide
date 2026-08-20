@@ -1,6 +1,6 @@
 import { forwardRef, type HTMLAttributes } from "react";
 
-import { cn } from "../lib/utils";
+import { cn } from "../utils/cn";
 
 type TextSize =
   | "display-2xl"
