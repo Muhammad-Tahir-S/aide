@@ -1,7 +1,11 @@
-import { app } from "./app";
+import "dotenv/config";
 
-const port = 3000;
+import { app } from "./app/app";
+import { loadConfig } from "./config";
 
-const server = app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
+const { PORT, NODE_ENV, CORS_ORIGIN } = loadConfig();
+
+const server = app.listen(PORT, () => {
+  console.log(`Listening on http://localhost:${PORT}`);
+  console.log(`env=${NODE_ENV} cors=${CORS_ORIGIN}`);
 });
