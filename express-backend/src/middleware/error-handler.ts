@@ -9,7 +9,7 @@ export function errorHandler(
   next: NextFunction,
 ) {
   if (res.headersSent) {
-    next(err);
+    return next(err);
   }
 
   const requestId = req.requestId;
