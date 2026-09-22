@@ -10,7 +10,7 @@ import { useLocation } from "react-router";
 import { isMotifId, type MotifId, shuffleMotifs } from "./motifs";
 
 const DEFAULT_MOTIF = "fern-fronds";
-const MOTIF_STORAGE_KEY = "helper-apps-atmosphere-motif";
+const MOTIF_STORAGE_KEY = "aide-atmosphere-motif";
 const HOUR_MS = 60 * 60 * 1000;
 
 type MotifState = {

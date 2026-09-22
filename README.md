@@ -1,4 +1,4 @@
-# Helper Apps
+# Aide
 
 This monorepo contains the frontend and backend services for a suite of collaborative applications, including a Task Manager and a Notes app. It's configured with pnpm workspaces, TypeScript, and a full suite of development tools to ensure code quality and consistency.
 
@@ -20,8 +20,8 @@ The repository is organized as follows:
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/your-username/helper-apps.git
-    cd helper-apps
+    git clone https://github.com/your-username/aide.git
+    cd aide
     ```
 
 2.  **Install dependencies:**

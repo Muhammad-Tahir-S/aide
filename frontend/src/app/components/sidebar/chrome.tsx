@@ -10,7 +10,7 @@ import {
   type SidebarMode,
 } from "./variants";
 
-const MODE_KEY = "helper-apps-sidebar-mode";
+const MODE_KEY = "aide-sidebar-mode";
 
 type SidebarChromeValue = {
   mode: SidebarMode;

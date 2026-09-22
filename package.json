@@ -1,8 +1,8 @@
 {
-  "name": "helper-apps",
+  "name": "aide",
   "version": "1.0.0",
   "private": true,
-  "description": "Monorepo for Task Manager and Notes applications with a shared backend.",
+  "description": "Monorepo for connected AI-powered productivity apps.",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"pnpm:dev:*\"",
