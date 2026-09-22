@@ -25,6 +25,20 @@ export function errorHandler(
   // eslint-disable-next-line no-console
   console.error({ requestId, err });
 
+  if (
+    err instanceof SyntaxError &&
+    "status" in err &&
+    (err as { status?: number }).status === 400
+  ) {
+    res.status(400).json({
+      error: {
+        code: "BAD_REQUEST",
+        message: "Malformed JSON body",
+        requestId,
+      },
+    });
+  }
+
   res.status(500).json({
     error: {
       code: "INTERNAL_ERROR",

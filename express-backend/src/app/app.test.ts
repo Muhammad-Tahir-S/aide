@@ -1,7 +1,16 @@
 import request from "supertest";
 import { describe, expect, it } from "vitest";
 
-import { app } from "./app";
+import type { Config } from "../config";
+import { createApp } from "./app";
+
+const config: Config = {
+  PORT: 3000,
+  NODE_ENV: "test",
+  CORS_ORIGIN: "http://localhost:5173",
+};
+
+const app = createApp(config);
 
 describe("GET /health", () => {
   it('returns 200 and { status: "ok" } as JSON', async () => {
@@ -36,5 +45,44 @@ describe("unknown routes", () => {
       .set("X-Request-Id", "test-id-123");
     expect(res.headers["x-request-id"]).toBe("test-id-123");
     expect(res.body.error.requestId).toBe("test-id-123");
+  });
+});
+
+describe("CORS", () => {
+  it("reflects the configured origin on /health", async () => {
+    const res = await request(app)
+      .get("/health")
+      .set("Origin", "http://localhost:5173");
+
+    expect(res.headers["access-control-allow-origin"]).toBe(
+      "http://localhost:5173",
+    );
+    expect(res.headers["access-control-allow-credentials"]).toBe("true");
+  });
+});
+
+describe("POST /echo", () => {
+  it("echoes a valid message", async () => {
+    const res = await request(app).post("/echo").send({ message: "hello" });
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ echo: "hello" });
+  });
+
+  it("returns 422 for invalid body", async () => {
+    const res = await request(app).post("/echo").send({ message: "" });
+
+    expect(res.status).toBe(422);
+    expect(res.body.error.code).toBe("VALIDATION_ERROR");
+  });
+
+  it("returns 400 for malformed JSON", async () => {
+    const res = await request(app)
+      .post("/echo")
+      .set("Content-Type", "application/json")
+      .send("{");
+
+    expect(res.status).toBe(400);
+    expect(res.body.error.code).toBe("BAD_REQUEST");
   });
 });

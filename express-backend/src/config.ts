@@ -6,7 +6,7 @@ const envSchema = z.object({
   CORS_ORIGIN: z.url(),
 });
 
-type Config = z.infer<typeof envSchema>;
+export type Config = z.infer<typeof envSchema>;
 
 export function loadConfig(env: NodeJS.ProcessEnv = process.env): Config {
   const result = envSchema.safeParse(env);
