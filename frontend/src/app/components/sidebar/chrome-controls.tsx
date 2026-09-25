@@ -65,7 +65,7 @@ export function SidebarBrand() {
           variant.logo,
         )}
       >
-        App Logo
+        Aide
       </span>
       {isMobile ? (
         <button
