@@ -15,7 +15,6 @@ export const taskSchema = z.object({
   updatedAt: z.iso.datetime(),
   dueDate: z.iso.datetime().nullable(),
 });
-export type Task = z.infer<typeof taskSchema>;
 
 export const createTaskSchema = z.object({
   title: z.string().trim().min(1).max(200),
@@ -23,7 +22,6 @@ export const createTaskSchema = z.object({
   position: z.number().int().nonnegative().optional(),
   dueDate: z.iso.datetime().nullable().optional(),
 });
-export type CreateTaskInput = z.infer<typeof createTaskSchema>;
 
 export const updateTaskSchema = z
   .object({
@@ -43,7 +41,6 @@ export const updateTaskSchema = z
       error: "At least one of title, status, dueDate, or position is required",
     },
   );
-export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
 
 export const taskListQuerySchema = z.object({
   parentTaskId: z.string().min(1).nullable().optional(),
@@ -51,4 +48,3 @@ export const taskListQuerySchema = z.object({
   limit: z.coerce.number().int().min(1).max(100).default(20),
   offset: z.coerce.number().int().nonnegative().default(0),
 });
-export type TaskListQuery = z.infer<typeof taskListQuerySchema>;

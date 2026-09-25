@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { createTaskSchema, taskSchema, updateTaskSchema } from "./schema";
+import { createTaskSchema, taskSchema, updateTaskSchema } from "./schemas";
 
 describe("createTaskSchema", () => {
   it("accepts a title-only create", () => {
