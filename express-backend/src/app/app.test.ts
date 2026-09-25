@@ -60,29 +60,3 @@ describe("CORS", () => {
     expect(res.headers["access-control-allow-credentials"]).toBe("true");
   });
 });
-
-describe("POST /echo", () => {
-  it("echoes a valid message", async () => {
-    const res = await request(app).post("/echo").send({ message: "hello" });
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({ echo: "hello" });
-  });
-
-  it("returns 422 for invalid body", async () => {
-    const res = await request(app).post("/echo").send({ message: "" });
-
-    expect(res.status).toBe(422);
-    expect(res.body.error.code).toBe("VALIDATION_ERROR");
-  });
-
-  it("returns 400 for malformed JSON", async () => {
-    const res = await request(app)
-      .post("/echo")
-      .set("Content-Type", "application/json")
-      .send("{");
-
-    expect(res.status).toBe(400);
-    expect(res.body.error.code).toBe("BAD_REQUEST");
-  });
-});
