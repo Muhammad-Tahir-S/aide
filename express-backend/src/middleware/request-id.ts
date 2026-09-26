@@ -2,11 +2,14 @@ import { randomUUID } from "node:crypto";
 
 import type { NextFunction, Request, Response } from "express";
 
+import type { Actor } from "../domain/auth/types";
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       requestId: string;
+      user?: Actor;
     }
   }
 }

@@ -20,7 +20,7 @@ export function createMemoryTaskRepository(): TaskRepository & {
 
     findById: async (id) => {
       const foundTask = tasksMap.get(id);
-      return foundTask ? foundTask : null;
+      return foundTask ? structuredClone(foundTask) : null;
     },
 
     list: async (filter) => {
