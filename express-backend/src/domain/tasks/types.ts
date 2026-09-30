@@ -6,6 +6,7 @@ import type {
   taskSchema,
   updateTaskSchema,
 } from "./schemas";
+import type { createTaskService } from "./service";
 
 //schema types
 export type Task = z.infer<typeof taskSchema>;
@@ -22,4 +23,7 @@ export interface TaskRepository {
   list: (filter: TaskListFilter) => Promise<TaskListResult>;
   update: (task: Task) => Promise<Task>;
   deleteById: (id: string) => Promise<boolean>;
+  clear: VoidFunction;
 }
+
+export type TaskService = ReturnType<typeof createTaskService>;

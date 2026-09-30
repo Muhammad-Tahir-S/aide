@@ -1,18 +1,19 @@
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { AppError } from "../../errors/app-errors";
-import { createMemoryTaskRepository } from "./memory-repository";
-import { taskService } from "./service";
+import { createTaskRepository } from "./memory-repository";
+import { createTaskService } from "./service";
+import type { TaskRepository, TaskService } from "./types";
 
 describe("TaskService", () => {
-  let taskRepository: ReturnType<typeof createMemoryTaskRepository>;
-  let service: ReturnType<typeof taskService>;
+  let taskRepository: TaskRepository;
+  let service: TaskService;
   const aliceUser = { id: "alice" };
   const bobUser = { id: "bob" };
 
   beforeEach(() => {
-    taskRepository = createMemoryTaskRepository();
-    service = taskService(taskRepository);
+    taskRepository = createTaskRepository();
+    service = createTaskService(taskRepository);
   });
 
   it("creates a top-level task for the actor", async () => {

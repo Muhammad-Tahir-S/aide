@@ -8,13 +8,15 @@
 **Prior Cursor transcript id:** `d2c935b9-f676-4abe-8381-787989028950`
 
 **How to continue in a fresh chat:**  
-`@learning_backend.plan.md` and `@.cursor/learning-handoff/SESSION_CONTEXT.md` — say: *continue Domain Step 1 (Task Zod schemas) from the handoff*.
+`@learning_backend.plan.md` and `@.cursor/learning-handoff/SESSION_CONTEXT.md` — say: *continue from the handoff; pick a next step from the options at the bottom*.
 
 **Teaching style the user wants:** interactive, step-by-step; explain why/how; cite official docs; thorough examples; **user handwrites code** (do not dump-implement unless asked).
 
+**Last progress update:** 2026-09-29
+
 ---
 
-## Progress snapshot (as of handoff)
+## Progress snapshot
 
 ### Done — HTTP fundamentals
 1. Request/response message anatomy  
@@ -27,86 +29,126 @@
 1. pnpm workspace package, TS, `createApp(config)` vs `server.ts`, `GET /health`  
 2. Zod config (`PORT`, `NODE_ENV` as `dev|test|prod`, `CORS_ORIGIN`), Vitest + Supertest  
 3. Request IDs (`X-Request-Id`), `AppError`, JSON error envelope, not-found → error handler  
-4. CORS (`credentials: true`, specific origin), `express.json()`, `400` malformed JSON / `422` validation (echo route was a learning tool; may be removed)  
+4. CORS (`credentials: true`, specific origin), `express.json()`, malformed JSON → `400`  
 5. Graceful shutdown (`SIGINT`/`SIGTERM`, `server.close`, force `closeAllConnections`); note: `tsx watch` / `pnpm dev` force-kills and breaks the “drain in-flight” demo — use `pnpm start` for that demo  
 
 **Plan todo `baseline-http`:** completed  
 
-### In progress / next — Domain CRUD
-**Next lesson assigned:** Domain Step 1 — Task (+ light Note) Zod schemas  
-- Files to handwrite: `src/domain/tasks/schemas.ts`, `schemas.test.ts`, `src/domain/notes/schemas.ts`  
-- Then: repository interface + in-memory impl → service (ownership) → thin routes → fake-user middleware  
-- **After** domain exit criterion: Phase 2 Express session auth (added to plan)  
-- **Later:** React → SQLite → editor → dictation → agent → evals → Hono + Better Auth  
+### Done — Domain tasks (Steps 1–4)
+1. **Zod schemas** — `Task` entity, create/update/list query; statuses `todo | in-progress | completed`; `dueDate`; optimistic `version`  
+2. **Repository** — `TaskRepository` interface + in-memory Map (`createTaskRepository`); clone on write; filter by `ownerId` / `parentTaskId` / `status`  
+3. **Service** — `createTaskService(repo)`; `Actor`; defaults; ownership; parent ownership for subtasks; version conflict → `409 TASK_VERSION_CONFLICT`; foreign/missing → `404 TASK_NOT_FOUND`  
+4. **HTTP** — `fakeUser` (`X-User-Id`) global; `requireUser` on `/api/tasks`; thin `tasksRouter`; `createApp(config, deps?)` injects repo for tests  
+5. **Tests** — schema, memory repo, service, route Supertest (401, 201, 422, cross-user 404, complete + version, 409 stale)  
 
-**Auth path (user requested, added to plan):**  
-- Domain: fake-user middleware for **authz** (`req.user` + ownership)  
-- Phase 2: Express **authn** (sessions, hashed passwords, cookie flags) before React  
-- Phase 10: Better Auth on Hono replaces Express sessions; keep `req.user` + ownership stable  
+**Checkpoint locked in (2026-09-29):**  
+- `fakeUser` global (attach identity when present); `requireUser` only on routes that need auth  
+- `ownerId` set by **server** from actor, never from client body  
+- Replacing `X-User-Id` with a session cookie keeps the same `Actor` → service ownership flow  
+
+### In progress — Plan todo `domain-crud`
+Exit criterion still needs:
+- [ ] Explicit subtask **reorder** (if not only `position` on PATCH) — confirm coverage  
+- [ ] **Note** create/update API + service + repo + tests (note schema stub exists)  
+- [ ] Full checklist: parent + subtasks + complete + note + invalid input + cross-user (tasks side largely done)  
+
+**Plan todo `domain-crud`:** in progress (tasks API up; notes + polish remain)  
+
+### Not started (next phases)
+- Phase 2 — Express session auth (`express-auth`)  
+- Phase 3 — React + TanStack  
+- Phase 4+ — SQLite → editor → dictation → agent → evals → Hono + Better Auth  
+
+**Auth path (unchanged):**  
+- Now: fake-user **authz** (`req.user` + ownership)  
+- Next auth phase: Express **authn** (sessions, hashed passwords, cookies) before React  
+- Later: Better Auth on Hono; keep `req.user` / `Actor` + ownership stable  
 
 ---
 
 ## Current Express architecture (learning app)
 
 ```text
-express-backend/
-  package.json          # name may still say express-backend-aide-app
-  .env / .env.example   # PORT, NODE_ENV, CORS_ORIGIN
-  vitest.config.ts
-  src/
-    config.ts           # loadConfig() + Zod; export Config
-    server.ts           # dotenv, createApp, listen, graceful shutdown
-    app/
-      app.ts            # createApp(config)
-      app.test.ts       # health, 404 envelope, CORS, (echo if still present)
-      index.ts          # default export createApp
-    middleware/
-      request-id.ts     # requestIdSetter; Express.Request.requestId
-      not-found.ts
-      error-handler.ts  # AppError, SyntaxError→400, else 500; return if headersSent
-    errors/
-      app-errors.ts     # AppError(statusCode, code, message)
+express-backend/src/
+  config.ts
+  server.ts                    # listen + graceful shutdown
+  app/app.ts                   # createApp(config, deps?)
+  errors/app-errors.ts
+  middleware/
+    request-id.ts
+    fake-user.ts               # X-User-Id → req.user
+    require-user.ts            # 401 if no user
+    not-found.ts
+    error-handler.ts
+  domain/
+    auth/types.ts              # Actor { id }
+    tasks/
+      schemas.ts / schemas.test.ts
+      types.ts                 # Task, inputs, TaskRepository
+      memory-repository.ts
+      memory-repository-test.ts
+      service.ts / service.test.ts
+    notes/schema.ts            # light stub only
+  routes/
+    tasks.ts / tasks.test.ts
 ```
 
-**Middleware order:** `requestId` → `cors` → `express.json` → routes → `notFound` → `errorHandler`  
+**Middleware order:** `requestId` → `cors` → `json` → `fakeUser` → routes → `notFound` → `errorHandler`  
 
 **Error envelope:**
 ```json
 { "error": { "code": "...", "message": "...", "requestId": "..." } }
 ```
 
+**Privacy policy in use:** other user's task → `404 TASK_NOT_FOUND` (same as missing). `403` deferred.
+
 ---
 
-## Course outline (updated)
+## Course outline (status)
 
 | # | Item | Status |
 |---|---|---|
 | HTTP 1–5 | Fundamentals | Done |
 | Express 1–5 | Shell | Done |
-| Domain 1 | Task/Note Zod schemas | **Next** |
-| Domain 2–n | Repo → service → routes → fake-user | Pending |
+| Domain 1 | Task/Note Zod schemas | Done (notes light) |
+| Domain 2 | Task repository (memory) | Done |
+| Domain 3 | Task service + ownership | Done |
+| Domain 4 | Fake user + `/api/tasks` routes | Done |
+| Domain 5+ | Notes CRUD / subtask reorder polish | **Decide next** |
 | Phase 2 | Express session auth | Pending |
 | Phase 3 | React + TanStack + credentials | Pending |
-| Phase 4+ | SQLite → notes → dictation → agent → evals → Hono | Pending |
-
-See `learning_backend.plan.md` for full phase text (includes Express auth phase and renumbered later phases).
+| Phase 4+ | SQLite → notes editor → … → Hono | Pending |
 
 ---
 
 ## Important corrections burned into the chat
 
 - Create resource → prefer **`201`**, not `200`  
-- Missing resource → **`404`**; wrong owner → **`403`** (or `404` as privacy policy)  
+- Missing / non-owned (current policy) → **`404`**; optional later **`403`** for authenticated-but-forbidden  
 - Valid JSON, bad domain data → **`422`**; not JSON → **`400`**  
+- Stale optimistic lock → **`409`**  
 - `server.close` does **not** kill in-flight; `closeAllConnections` does  
-- Shutdown listeners are on **`process`**, ownership of listen/close is **`server.ts`**, not `createApp`  
+- Shutdown listeners on **`process`**; listen/close in **`server.ts`**  
 - CORS is headers + browser; curl ignores it  
+- `dueDate`: entity `.nullable()` (always present); PATCH `.nullable().optional()`  
+- List filter: `parentTaskId: null` ≠ omit field  
+
+---
+
+## Possible next steps (user chooses)
+
+1. **Notes CRUD** — same pattern as tasks (schemas polish → memory repo → service → `/api/notes` + tests). Closest to finishing `domain-crud`.  
+2. **Subtask polish** — list-by-parent, reorder/`position` tests, maybe delete rules for parents with children.  
+3. **Phase 2 Express auth** — start sessions early (domain exit not fully met; tasks authz already solid).  
+4. **Structured logging (pino)** — optional shell polish before more domain.  
+5. **Pause / review** — walk request path create-task end-to-end from curl to Map.  
 
 ---
 
 ## Agent instructions if resuming
 
-1. Do **not** re-teach HTTP/Express shell unless asked.  
-2. Continue interactive Domain Step 1 (schemas) unless user says they already finished it.  
-3. Keep handwriting-first; check answers; cite MDN/Express/Zod/Node docs.  
+1. Do **not** re-teach HTTP/Express shell or Task Steps 1–4 unless asked.  
+2. Ask the user which next step (1–5 above) they want, or follow their explicit choice.  
+3. Keep handwriting-first; check answers; cite MDN/Express/Zod/Node/OWASP docs.  
 4. Prefer paths under `/Users/muhammad-tahirsanuth/Desktop/Coding/aide`.  
+5. Keep `Actor` / `req.user` stable when introducing real auth later.  

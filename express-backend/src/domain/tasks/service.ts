@@ -2,17 +2,15 @@ import { randomUUID } from "node:crypto";
 
 import { AppError } from "../../errors/app-errors";
 import type { Actor } from "../auth/types";
-import type { createMemoryTaskRepository } from "./memory-repository";
 import type {
   CreateTaskInput,
   Task,
   TaskListQuery,
+  TaskRepository,
   UpdateTaskInput,
 } from "./types";
 
-export function taskService(
-  taskRepository: ReturnType<typeof createMemoryTaskRepository>,
-) {
+export function createTaskService(taskRepository: TaskRepository) {
   async function requireOwnedTask(actor: Actor, taskId: string): Promise<Task> {
     const task = await taskRepository.findById(taskId);
 

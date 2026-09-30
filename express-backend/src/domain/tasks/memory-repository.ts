@@ -1,9 +1,6 @@
 import type { Task, TaskRepository } from "./types";
 
-export function createMemoryTaskRepository(): TaskRepository & {
-  //test helper, so declared inline here
-  clear: VoidFunction;
-} {
+export function createTaskRepository(): TaskRepository {
   const tasksMap = new Map<string, Task>();
 
   return {

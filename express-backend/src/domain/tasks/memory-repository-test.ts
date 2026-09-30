@@ -2,7 +2,7 @@ import { randomUUID } from "node:crypto";
 
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { createMemoryTaskRepository } from "./memory-repository";
+import { createTaskRepository } from "./memory-repository";
 import type { Task } from "./types";
 
 function makeTask(overrides: Partial<Task> = {}): Task {
@@ -22,8 +22,8 @@ function makeTask(overrides: Partial<Task> = {}): Task {
   };
 }
 
-describe("createMemoryTaskRepository", () => {
-  const repo = createMemoryTaskRepository();
+describe("createTaskRepository", () => {
+  const repo = createTaskRepository();
 
   beforeEach(() => {
     repo.clear();
