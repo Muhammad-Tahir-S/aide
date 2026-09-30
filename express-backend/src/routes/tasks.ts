@@ -31,10 +31,10 @@ export function tasksRouter(tasksService: TaskService) {
 
   router.get("/", async (req, res, next) => {
     try {
-      const parsed = taskListQuerySchema.safeParse(req.body);
+      const parsed = taskListQuerySchema.safeParse(req.query);
 
       if (!parsed.success) {
-        next(new AppError(422, "VALIDATION_ERROR", "Invalid request body"));
+        next(new AppError(422, "VALIDATION_ERROR", "Invalid query"));
         return;
       }
 

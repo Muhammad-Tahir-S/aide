@@ -76,6 +76,54 @@ describe("tasks API", () => {
     expect(res.body.version).toBe(2);
   });
 
+  it("lists via query string filters", async () => {
+    const parent = await request(app)
+      .post("/api/tasks")
+      .set("X-User-Id", "alice")
+      .send({ title: "Parent" });
+    await request(app)
+      .post("/api/tasks")
+      .set("X-User-Id", "alice")
+      .send({ title: "Child", parentTaskId: parent.body.id });
+    await request(app)
+      .post("/api/tasks")
+      .set("X-User-Id", "alice")
+      .send({ title: "Other top" });
+
+    const topLevel = await request(app)
+      .get("/api/tasks")
+      .query({ parentTaskId: "null", limit: "10" })
+      .set("X-User-Id", "alice");
+
+    expect(topLevel.status).toBe(200);
+    expect(
+      topLevel.body.items.every(
+        (t: { parentTaskId: string | null }) => t.parentTaskId === null,
+      ),
+    ).toBe(true);
+    expect(
+      topLevel.body.items.some((t: { title: string }) => t.title === "Child"),
+    ).toBe(false);
+
+    const children = await request(app)
+      .get("/api/tasks")
+      .query({ parentTaskId: parent.body.id })
+      .set("X-User-Id", "alice");
+
+    expect(children.status).toBe(200);
+    expect(children.body.total).toBe(1);
+    expect(children.body.items[0].title).toBe("Child");
+
+    const limited = await request(app)
+      .get("/api/tasks")
+      .query({ status: "todo", limit: "1" })
+      .set("X-User-Id", "alice");
+
+    expect(limited.status).toBe(200);
+    expect(limited.body.items).toHaveLength(1);
+    expect(limited.body.total).toBeGreaterThanOrEqual(1);
+  });
+
   it("returns 409 on stale version", async () => {
     const created = await request(app)
       .post("/api/tasks")

@@ -42,8 +42,21 @@ export const updateTaskSchema = z
     },
   );
 
+/**
+ * Query strings are always strings. `?parentTaskId=null` arrives as "null",
+ * not JSON null — preprocess before validating.
+ */
+const parentTaskIdQuerySchema = z.preprocess(
+  (value) => {
+    if (value === undefined || value === "") return undefined;
+    if (value === "null") return null;
+    return value;
+  },
+  z.union([z.string().min(1), z.null()]).optional(),
+);
+
 export const taskListQuerySchema = z.object({
-  parentTaskId: z.string().min(1).nullable().optional(),
+  parentTaskId: parentTaskIdQuerySchema,
   status: taskStatusSchema.optional(),
   limit: z.coerce.number().int().min(1).max(100).default(20),
   offset: z.coerce.number().int().nonnegative().default(0),
